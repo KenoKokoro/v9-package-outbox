@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use V9\Outbox\Models\Outbox;
 
 class CreateOutboxTable extends Migration
 {
@@ -12,14 +13,14 @@ class CreateOutboxTable extends Migration
      */
     public function up()
     {
-        Schema::create('outbox', function (Blueprint $table) {
+        Schema::create('outbox', function(Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('channel');
             $table->text('content');
             $table->timestamp('send_at');
             $table->timestamp('sent_at')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->default(Outbox::STATUS_PENDING);
             $table->string('subject_id');
             $table->string('subject_type');
             $table->string('receiver_id');
