@@ -12,7 +12,9 @@
     "type": "library",
     "require": {
         "php": ">=7.4.0",
-        "illuminate/database": "6.*"
+        "illuminate/database": "^6.1",
+        "illuminate/container": "^6.1",
+        "illuminate/support": "^6.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",

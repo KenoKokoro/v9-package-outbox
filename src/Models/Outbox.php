@@ -5,6 +5,15 @@ namespace V9\Outbox\Models;
 use Illuminate\Database\Eloquent\Model;
 use V9\Outbox\Contracts\OutboxInstance;
 
+/**
+ * @property string         channel
+ * @property OutboxInstance content
+ * @property int            try
+ * @property string         subject_id
+ * @property string         subject_type
+ * @property string         receiver_id
+ * @property string         receiver_type
+ */
 class Outbox extends Model
 {
     const STATUS_PENDING = 'pending';
