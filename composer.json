@@ -30,6 +30,13 @@
             "V9\\Tests\\Outbox\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "V9\\Outbox\\Providers\\ServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
