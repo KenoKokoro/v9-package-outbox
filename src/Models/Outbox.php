@@ -21,7 +21,7 @@ class Outbox extends Model
     const STATUS_ERROR = 'error';
     const STATUS_DONE = 'done';
 
-    protected string $table = 'outbox';
+    protected $table = 'outbox';
 
     protected array $fillable = [
         'channel',

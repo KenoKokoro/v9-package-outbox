@@ -1,14 +1,15 @@
 <?php
 
-namespace V9\Outbox\Module;
+namespace V9\Outbox\Module\Schedule;
 
 use Illuminate\Support\Carbon;
 use V9\Outbox\Contracts\OutboxInstance;
 use V9\Outbox\Contracts\ReceiverInstance;
 use V9\Outbox\Contracts\SubjectInstance;
 use V9\Outbox\Models\Outbox;
+use V9\Outbox\Module\Exceptions\UnsupportedChannelException;
 
-interface OutboxScheduler
+interface ScheduleInterface
 {
     /**
      * Schedule the given instance to be sent to the subject
@@ -18,6 +19,7 @@ interface OutboxScheduler
      * @param SubjectInstance  $subject
      * @param ReceiverInstance $receiver
      * @return Outbox
+     * @throws UnsupportedChannelException
      */
     public function put(
         Carbon $sendAt,
