@@ -23,7 +23,7 @@ class Outbox extends Model
 
     protected $table = 'outbox';
 
-    protected array $fillable = [
+    protected $fillable = [
         'channel',
         'content',
         'send_at',
