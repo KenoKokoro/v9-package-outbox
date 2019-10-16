@@ -2,23 +2,18 @@
 
 namespace V9\Outbox\DAL\Outbox;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use V9\DAL\EloquentRepository;
 use V9\Outbox\Contracts\OutboxInstance;
 use V9\Outbox\Contracts\ReceiverInstance;
 use V9\Outbox\Contracts\SubjectInstance;
 use V9\Outbox\Models\Outbox;
 
-class EloquentOutbox implements OutboxRepository
+class EloquentOutbox extends EloquentRepository implements OutboxRepository
 {
-    /**
-     * @var Outbox
-     */
-    private $model;
-
-    public function __construct(Outbox $outbox)
+    public function __construct(Outbox $model)
     {
-        $this->model = $outbox;
+        parent::__construct($model);
     }
 
     public function schedule(
@@ -48,7 +43,7 @@ class EloquentOutbox implements OutboxRepository
 
     public function success(Outbox $outbox): void
     {
-        $outbox->update([
+        $this->update($outbox, [
             'sent_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'status' => Outbox::STATUS_DONE,
             'error' => null,
@@ -58,7 +53,7 @@ class EloquentOutbox implements OutboxRepository
 
     public function pending(Outbox $outbox): void
     {
-        $outbox->update([
+        $this->update($outbox, [
             'status' => Outbox::STATUS_RUNNING,
             'error' => null,
         ]);
@@ -66,19 +61,10 @@ class EloquentOutbox implements OutboxRepository
 
     public function error(Outbox $outbox, string $error): void
     {
-        $outbox->update([
+        $this->update($outbox, [
             'status' => Outbox::STATUS_ERROR,
             'error' => $error,
             'try' => ($outbox->try + 1),
         ]);
-    }
-
-    /**
-     * New query builder
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->model->newQuery();
     }
 }

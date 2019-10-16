@@ -4,12 +4,13 @@ namespace V9\Outbox\DAL\Outbox;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use V9\DAL\Contracts\RepositoryInterface;
 use V9\Outbox\Contracts\OutboxInstance;
 use V9\Outbox\Contracts\ReceiverInstance;
 use V9\Outbox\Contracts\SubjectInstance;
 use V9\Outbox\Models\Outbox;
 
-interface OutboxRepository
+interface OutboxRepository extends RepositoryInterface
 {
     /**
      * Schedule the notification to outbox

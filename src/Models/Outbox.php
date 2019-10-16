@@ -3,6 +3,7 @@
 namespace V9\Outbox\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use V9\DAL\Contracts\BaseModelInterface;
 use V9\Outbox\Contracts\OutboxInstance;
 
 /**
@@ -14,7 +15,7 @@ use V9\Outbox\Contracts\OutboxInstance;
  * @property string         receiver_id
  * @property string         receiver_type
  */
-class Outbox extends Model
+class Outbox extends Model implements BaseModelInterface
 {
     const STATUS_PENDING = 'pending';
     const STATUS_RUNNING = 'running';

@@ -3,16 +3,12 @@
 namespace V9\Tests\Outbox\Unit\DAL;
 
 use Illuminate\Contracts\Foundation\Application;
+use Mockery as m;
 use Mockery\MockInterface;
 use V9\Outbox\DAL\Outbox\EloquentOutbox;
 use V9\Outbox\DAL\Outbox\OutboxRepository;
 use V9\Outbox\DAL\ServiceProvider;
-use V9\Response\Http\HttpFactory;
-use V9\Response\Http\HttpFactoryInterface;
-use V9\Response\Http\Json\Factory as JsonFactory;
-use V9\Response\Http\Json\JsonResponseInterface;
 use V9\Tests\Outbox\Unit\TestCase;
-use Mockery as m;
 
 class ServiceProviderTest extends TestCase
 {
