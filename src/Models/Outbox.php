@@ -3,6 +3,7 @@
 namespace V9\Outbox\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use V9\DAL\Contracts\BaseModelInterface;
 use V9\Outbox\Contracts\OutboxInstance;
 
 /**
@@ -14,16 +15,16 @@ use V9\Outbox\Contracts\OutboxInstance;
  * @property string         receiver_id
  * @property string         receiver_type
  */
-class Outbox extends Model
+class Outbox extends Model implements BaseModelInterface
 {
     const STATUS_PENDING = 'pending';
     const STATUS_RUNNING = 'running';
     const STATUS_ERROR = 'error';
     const STATUS_DONE = 'done';
 
-    protected $table = 'outbox';
+    protected $table = 'v9_outbox';
 
-    protected array $fillable = [
+    protected $fillable = [
         'channel',
         'content',
         'send_at',
@@ -39,11 +40,11 @@ class Outbox extends Model
 
     public function setContentAttribute(OutboxInstance $instance): void
     {
-        $this->attributes['content'] = encrypt(base64_encode(serialize($instance)));
+        $this->attributes['content'] = base64_encode(serialize($instance));
     }
 
     public function getContentAttribute(string $content): OutboxInstance
     {
-        return unserialize(base64_decode(decrypt($content)));
+        return unserialize(base64_decode($content));
     }
 }
