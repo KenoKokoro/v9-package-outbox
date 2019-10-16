@@ -22,7 +22,7 @@ class Outbox extends Model implements BaseModelInterface
     const STATUS_ERROR = 'error';
     const STATUS_DONE = 'done';
 
-    protected $table = 'outbox';
+    protected $table = 'v9_outbox';
 
     protected $fillable = [
         'channel',
@@ -40,11 +40,11 @@ class Outbox extends Model implements BaseModelInterface
 
     public function setContentAttribute(OutboxInstance $instance): void
     {
-        $this->attributes['content'] = encrypt(base64_encode(serialize($instance)));
+        $this->attributes['content'] = base64_encode(serialize($instance));
     }
 
     public function getContentAttribute(string $content): OutboxInstance
     {
-        return unserialize(base64_decode(decrypt($content)));
+        return unserialize(base64_decode($content));
     }
 }

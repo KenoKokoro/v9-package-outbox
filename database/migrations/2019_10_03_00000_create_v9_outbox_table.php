@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use V9\Outbox\Models\Outbox;
 
-class CreateOutboxTable extends Migration
+class CreateV9OutboxTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOutboxTable extends Migration
      */
     public function up()
     {
-        Schema::create('outbox', function(Blueprint $table) {
+        Schema::create('v9_outbox', function(Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('channel');
@@ -41,6 +41,6 @@ class CreateOutboxTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('outbox');
+        Schema::dropIfExists('v9_outbox');
     }
 }
