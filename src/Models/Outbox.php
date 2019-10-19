@@ -37,14 +37,4 @@ class Outbox extends Model implements BaseModelInterface
         'try',
         'error',
     ];
-
-    public function setContentAttribute(OutboxInstance $instance): void
-    {
-        $this->attributes['content'] = base64_encode(serialize($instance));
-    }
-
-    public function getContentAttribute(string $content): OutboxInstance
-    {
-        return unserialize(base64_decode($content));
-    }
 }
