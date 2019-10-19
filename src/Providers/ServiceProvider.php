@@ -3,6 +3,8 @@
 namespace V9\Outbox\Providers;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Encryption\Encrypter;
 use V9\Outbox\DAL\Outbox\OutboxRepository;
 use V9\Outbox\DAL\ServiceProvider as DalServiceProvider;
 use V9\Outbox\Module\Channel\FactoryInterface;
@@ -26,7 +28,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
             return new V9Schedule(
                 $this->app->make(OutboxRepository::class),
-                $factory->createCollection($config->get('v9-outbox.map', []))
+                $factory->createCollection($config->get('v9-outbox.map', [])),
+                $this->app->make(Encrypter::class),
+                $this->app->make(Container::class)
             );
         });
     }

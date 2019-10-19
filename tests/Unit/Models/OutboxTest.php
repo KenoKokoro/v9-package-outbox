@@ -40,26 +40,4 @@ class OutboxTest extends TestCase
             'error',
         ], $this->fixture->getFillable());
     }
-
-    /** @test */
-    public function outbox_model_should_mutate_the_value_and_make_outbox_instance_to_string(): void
-    {
-        $instance = new OutboxInstanceStub;
-        $this->fixture->content = $instance;
-
-        self::assertTrue(is_string($this->fixture->getAttributes()['content']));
-    }
-
-    /** @test */
-    public function outbox_model_should_mutate_the_value_and_make_string_from_outbox_instance(): void
-    {
-        $this->fixture->setRawAttributes(['content' => $this->instanceString()]);
-
-        self::assertInstanceOf(OutboxInstance::class, $this->fixture->content);
-    }
-
-    private function instanceString(): string
-    {
-        return 'TzozOToiVjlcVGVzdHNcT3V0Ym94XFN0dWJcT3V0Ym94SW5zdGFuY2VTdHViIjoxOntzOjUwOiIAVjlcVGVzdHNcT3V0Ym94XFN0dWJcT3V0Ym94SW5zdGFuY2VTdHViAGF0dHJpYnV0ZSI7czo0OiJ0ZXN0Ijt9';
-    }
 }
