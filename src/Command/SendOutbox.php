@@ -4,7 +4,6 @@ namespace V9\Outbox\Command;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Psr\Log\LoggerInterface;
@@ -25,18 +24,14 @@ class SendOutbox extends Command
 
     private ScheduleInterface $scheduler;
 
-    private DatabaseManager $database;
-
     private LoggerInterface $logger;
 
     public function __construct(
         ScheduleInterface $scheduler,
-        DatabaseManager $database,
         LoggerInterface $logger
     ) {
         parent::__construct();
         $this->scheduler = $scheduler;
-        $this->database = $database;
         $this->logger = $logger;
     }
 
@@ -51,12 +46,10 @@ class SendOutbox extends Command
         /** @var Outbox $outbox */
         foreach ($outboxRecords as $outbox) {
             try {
-                $this->database->beginTransaction();
                 $this->log("Sending", $outbox);
                 $this->send($outbox);
-                $this->database->commit();
             } catch (Throwable $exception) {
-                $this->database->rollBack();
+                $this->scheduler->error($outbox, $exception);
                 $this->logger->error($exception);
                 $this->log("Error while sending", $outbox);
             }
