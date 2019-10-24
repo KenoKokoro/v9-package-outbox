@@ -29,7 +29,7 @@ interface ScheduleInterface
         string $channel,
         SubjectInstance $subject,
         ReceiverInstance $receiver,
-        Carbon $sendAt
+        Carbon $sendAt = null
     ): Outbox;
 
     /**

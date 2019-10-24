@@ -1,6 +1,6 @@
 {
-    "name": "kenokokoro/v9-response",
-    "description": "Json response builder for Laravel/Lumen",
+    "name": "kenokokoro/v9-package-outbox",
+    "description": "Outbox helper for Laravel/Lumen",
     "keywords": [
         "framework",
         "laravel",

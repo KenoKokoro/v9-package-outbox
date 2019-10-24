@@ -104,7 +104,8 @@ class V9Schedule implements ScheduleInterface
             ->newQuery()
             ->where('try', '<', $tries)
             ->whereIn('status', [Outbox::STATUS_PENDING, Outbox::STATUS_ERROR])
-            ->where('send_at', '<=', $endDate->format('Y-m-d H:i:s'));
+            ->where('send_at', '<=', $endDate->format('Y-m-d H:i:s'))
+            ->orderBy(Outbox::CREATED_AT, 'asc');
 
         if (!is_null($startDate)) {
             $query->where('send_at', '>=', $startDate->format('Y-m-d H:i:s'));
